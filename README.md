@@ -30,13 +30,11 @@ The challenge requires developing a server-side application in PHP exposing RSS 
    git clone <repository-url>
    cd guardian-rss
 
-2. **Set up environment variable**
-    Provide API Key in GUARDIAN_API_KEY in the .env file:
-
+2. **Set up environment variable in .env**
    ```bash
-   GUARDIAN_API_KEY=e8e99174-a76b-4eb4-801f-c6998511fe70 //This API didnot work for me I used my own API
-3. **Build and start container**
+   GUARDIAN_API_KEY=XXXXXXXXXXXXXXXXX //Provided API didnot work for me I used my own API
+4. **Build and start container**
     ```bash
     docker compose up --build -d
-4. **Browser App**
+5. **Browser App**
    `http://localhost:8000/[section-name]`, e.g. `/technology`, `/lifeandstyle`
