@@ -22,7 +22,7 @@ class RSSFeedGenerator
             $item->addChild('title', htmlspecialchars_decode($article['webTitle']));
             $item->addChild('link', $article['webUrl']);
             $item->addChild('description', htmlspecialchars_decode($article['fields']['trailText'] ?? 'No description available'));
-            $item->addChild('pubDate', date(DATE_RSS, strtotime($article['webPublicationDate'])));
+            $item->addChild('pubDate', date(DATE_RSS, strtotime($article['webPublicationDate'] ?? '')));
         }
 
         // Format XML using DOMDocument for pretty printing
