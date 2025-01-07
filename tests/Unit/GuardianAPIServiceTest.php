@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
 use App\Services\GuardianAPIService;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
