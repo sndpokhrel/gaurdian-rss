@@ -10,7 +10,6 @@ class GuardianAPIServiceTest extends TestCase
 {
     public function testGuardianAPIServiceFetchesArticles()
     {
-        // Fake the HTTP response
         Http::fake([
             'https://content.guardianapis.com/technology*' => Http::response([
                 'response' => [
@@ -22,13 +21,15 @@ class GuardianAPIServiceTest extends TestCase
             ], 200),
         ]);
 
-        // Instantiate the service and fetch articles
         $service = new GuardianAPIService();
+
+
         $articles = $service->getSectionArticles('technology');
 
-        // Assertions
         $this->assertNotEmpty($articles);
+
         $this->assertCount(2, $articles);
+        
         $this->assertEquals('Test Article 1', $articles[0]['webTitle']);
     }
 }
