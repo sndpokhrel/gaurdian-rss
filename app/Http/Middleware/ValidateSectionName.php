@@ -18,7 +18,9 @@ class ValidateSectionName
         $section = $request->route('section');
 
         if (!preg_match('/^[a-z-]+$/', $section)) {
-            return response()->json(['error' => 'Invalid section name'], 400);
+            return response()->json([
+                'error' => 'Invalid section name'
+            ], 400);
         }
         return $next($request);
     }
