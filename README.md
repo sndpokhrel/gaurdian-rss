@@ -32,7 +32,7 @@ The challenge requires developing a server-side application in PHP exposing RSS 
 
 2. **Set up environment variable in .env**
    ```bash
-   GUARDIAN_API_KEY=XXXXXXXXXXXXXXXXX <!--Provided API didnot work for me I used my own API-->
+   GUARDIAN_API_KEY=XXXXXXXXXXXXXXXXX #Provided API didnot work for me I used my own API
 4. **Build and start container**
     ```bash
     docker compose up --build -d
