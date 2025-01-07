@@ -9,18 +9,23 @@ class RSSController extends Controller
 {
     public function generateRSS($section)
     {
-        // Fetch articles
+        // Validation section
+        if (!preg_match('/^[a-z-]+$/', $section)) {
+            return response()->json(['error' => 'Invalid section name'], 400);
+        }
+
+        // Articles to fetch
         $articles = (new GuardianAPIService())->getSectionArticles($section);
 
-        // If no articles are found, return 404
+        // Condition if article not found returns response with 404
         if (empty($articles)) {
             return response()->json(['error' => "No articles found for section: $section"], 404);
         }
 
-        // Generate RSS feed
+        // Generate rss feed
         $rssFeed = RSSFeedGenerator::create($articles, $section);
 
-        // Return RSS feed as XML
+        // Return rss as xml
         return response($rssFeed, 200)->header('Content-Type', 'application/rss+xml');
     }
 }
