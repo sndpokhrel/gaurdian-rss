@@ -7,29 +7,32 @@ use Illuminate\Support\Facades\Cache;
 
 class GuardianAPIService
 {
-    private $apiKey = '8d0d9d2c-47fe-4703-88ab-9296a489a412';
+    private $apiKey;
+    private $apiUrl;
+
+    public function __construct()
+    {
+        // Fetch API key and url from environment variable
+        $this->apiKey = env('GUARDIAN_API_KEY');
+        $this->apiUrl = env('GUARDIAN_API_URL');
+    }
 
     public function getSectionArticles(string $section): array
     {
-        $response = Http::get("https://content.guardianapis.com/{$section}", [
-            'api-key' => $this->apiKey,
-            'format' => 'json',
-            'show-fields' => 'trailText,webTitle,webUrl',
-        ]);
-
-        if ($response->failed() || !isset($response->json()['response']['results'])) {
-            return [];
-        }
-
+        // Cache api response for 10 minutes
         return Cache::remember("section-{$section}", 600, function () use ($section) {
-            $response = Http::get("https://content.guardianapis.com/{$section}", [
+            $response = Http::get("{$this->apiUrl}/{$section}", [
                 'api-key' => $this->apiKey,
                 'format' => 'json',
                 'show-fields' => 'trailText,webTitle,webUrl',
             ]);
 
-            return $response->failed() ? [] : $response->json()['response']['results'] ?? [];
+            //check response fail or missing result
+            if ($response->failed() || !isset($response->json()['response']['results'])) {
+                return [];
+            }
+
+            return $response->json()['response']['results'];
         });
     }
-
 }
