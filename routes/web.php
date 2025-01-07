@@ -8,4 +8,5 @@ Route::get('/', function () {
 });
 
 Route::get('/{section}', [RSSController::class, 'generateRSS'])
+    ->middleware('validate.section')
     ->where('section', '[a-z-]+');
