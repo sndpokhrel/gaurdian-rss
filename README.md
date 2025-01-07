@@ -31,5 +31,3 @@ The challenge requires developing a server-side application in PHP exposing RSS 
    cd guardian-rss
 
 2. **Set up environment variable**
-
-Copy
